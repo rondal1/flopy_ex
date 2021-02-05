@@ -68,6 +68,12 @@ chd = flopy.mf6.ModflowGwfchd(
     save_flows=True,
 )
 
+#adajda
+rec= flopy.mf6.ModflowGwfrcha(
+        gwf,
+        recharge=0.001
+    )
+
 #
 iper = 0
 ra = chd.stress_period_data.get_data(key=iper)
@@ -122,6 +128,9 @@ fig = plt.figure(figsize=(5, 2.5))
 ax = fig.add_subplot(1, 1, 1, aspect="auto")
 c = ax.contour(x, z, h[:, 50, :], np.arange(90, 100.1, 0.2), colors="black")
 plt.clabel(c, fmt="%1.1f")
+
+
+
 
 
 
