@@ -14,8 +14,7 @@ k = 1.0
 
 
 sim = flopy.mf6.MFSimulation(
-    sim_name=name, exe_name="D:/UNIVERSIDAD/diplomado/mf6.2.0/bin/mf6.exe
-", version="mf6", sim_ws="Workspace"
+    sim_name=name, exe_name="C:/Users/asus/Desktop/Universidad/Sexto/mf6.2.0/bin/mf6", version="mf6", sim_ws="Workspace"
 )
 
 #Create the Flopy TDIS object 
@@ -129,4 +128,13 @@ ax = fig.add_subplot(1, 1, 1, aspect="auto")
 c = ax.contour(x, z, h[:, 50, :], np.arange(90, 100.1, 0.2), colors="orange")
 plt.clabel(c, fmt="%1.1f")
 
+plt.show()
+head = flopy.utils.HeadFile('WorkSpace/tutorial01_mf6.hds').get_data()
+cbb = flopy.utils.CellBudgetFile('WorkSpace/tutorial01_mf6.cbb', precision='double')
+
+pmv = flopy.plot.PlotMapView(gwf)
+pmv.plot_array(head)
+pmv.contour_array(head, levels=[.2, .4, .6, .8], linewidths=15.)
+pmv.plot_specific_discharge(spdis, istep=5, jstep = 5 ,color='blue')
+plt.show()
 
