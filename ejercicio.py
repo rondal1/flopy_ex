@@ -68,6 +68,12 @@ chd = flopy.mf6.ModflowGwfchd(
 )
 
 #
+rec = flopy.mf6.ModflowGwfrcha(
+        gwf,
+        recharge=0.001
+    )
+
+#
 iper = 0
 ra = chd.stress_period_data.get_data(key=iper)
 ra
@@ -95,6 +101,6 @@ success, buff = sim.run_simulation()
 if not success:
     raise Exception("MODFLOW 6 did not terminate normally.")
     
-    
+
 
 
