@@ -53,6 +53,7 @@ npf = flopy.mf6.ModflowGwfnpf(gwf, icelltype=1, k=k, save_flows=True)
 #
 chd_rec = []
 chd_rec.append(((0, int(N / 4), int(N / 4)), h2))
+chd_rec.append(((1, int(N / 4), int(N / 4)), h2-3))
 for layer in range(0, Nlay):
     for row_col in range(0, N):
         chd_rec.append(((layer, row_col, 0), h1))
@@ -66,6 +67,12 @@ chd = flopy.mf6.ModflowGwfchd(
     stress_period_data=chd_rec,
     save_flows=True,
 )
+
+#adajda
+rec= flopy.mf6.ModflowGwfrcha(
+        gwf,
+        recharge=0.001
+    )
 
 #
 rec = flopy.mf6.ModflowGwfrcha(
