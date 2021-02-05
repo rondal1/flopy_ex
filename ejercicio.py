@@ -14,7 +14,7 @@ k = 1.0
 
 
 sim = flopy.mf6.MFSimulation(
-    sim_name=name, exe_name="D:/UNIVERSIDAD/diplomado/mf6.2.0/bin/mf6.exe", version="mf6", sim_ws="Workspace"
+    sim_name=name, exe_name="C:/WRDAPP/mf6.2.0/bin/mf6.exe", version="mf6", sim_ws="Workspace"
 )
 
 #Create the Flopy TDIS object 
@@ -102,5 +102,30 @@ if not success:
     raise Exception("MODFLOW 6 did not terminate normally.")
     
 
+#grafico capa 1
 
+headfile = "Workspace" + '/' + headfile
+hds = flopy.utils.binaryfile.HeadFile(headfile)
+h = hds.get_data(kstpkper=(0, 0))
+x = y = np.linspace(0, L, N)
+y = y[::-1]
+fig = plt.figure(figsize=(6, 6))
+ax = fig.add_subplot(1, 1, 1, aspect="equal")
+c = ax.contour(x, y, h[0], np.arange(90, 100.1, 0.2), colors="blue")
+plt.clabel(c, fmt="%2.1f")
+
+#capa 10
+x = y = np.linspace(0, L, N)
+y = y[::-1]
+fig = plt.figure(figsize=(6, 6))
+ax = fig.add_subplot(1, 1, 1, aspect="equal")
+c = ax.contour(x, y, h[-1], np.arange(90, 100.1, 0.2), colors="green")
+plt.clabel(c, fmt="%1.1f")
+
+#sección transversal
+z = np.linspace(-H / Nlay / 2, -H + H / Nlay / 2, Nlay)
+fig = plt.figure(figsize=(5, 2.5))
+ax = fig.add_subplot(1, 1, 1, aspect="auto")
+c = ax.contour(x, z, h[:, 50, :], np.arange(90, 100.1, 0.2), colors="orange")
+plt.clabel(c, fmt="%1.1f")
 
